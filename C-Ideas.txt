@@ -1,0 +1,7 @@
+----------Future Ideas for Christine Tang to practice C Language --------------
+
+Mini Project Ideas:
+* https://knightlab.northwestern.edu/2014/06/05/five-mini-programming-projects-for-the-python-beginner/
+* https://www.reddit.com/r/learnprogramming/comments/2a9ygh/1000_beginner_programming_projects_xpost/
+* https://www.makeuseof.com/tag/beginner-programming-projects/
+
