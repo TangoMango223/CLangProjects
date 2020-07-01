@@ -1,0 +1,13 @@
+Mini Project #1 - Dice Rolling Simulator
+
+---------
+PseudoCode
+
+1. Declare all relevant libraries and packages, such as math.h, time.h, ctype.h
+2. Initialize the main function for ctype
+3. Activate the srand() function and use time as a seed for randomization
+4. Define the minimum and maximum for the dice, from 1 to 6
+5. Ask user for how many times they roll
+6. For loop, implementing the formula: (random number % (Max - Min) + Min)
+7. Deliver the numbers
+8. Return 0;
