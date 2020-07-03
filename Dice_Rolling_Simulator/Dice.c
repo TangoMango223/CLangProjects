@@ -26,7 +26,7 @@ int main(void)
     //Implementing sleep: https://www.poftut.com/what-is-sleep-function-and-how-to-use-it-in-c-program/#:~:text=C%20programming%20language%20provides%20sleep,will%20run%20without%20a%20problem.
 
 
-    //Counter variables: will note down how many 
+    //Counter variables: will note down how many times it shows up
     int count_1 = 0;
     int count_2 = 0;
     int count_3 = 0;
@@ -74,12 +74,13 @@ int main(void)
 
     }
     
-    printf("Printing the results: \n");
-    printf("Dice Roll 1 :%i time(s) \n", count_1);
-    printf("Dice Roll 2 :%i time(s) \n", count_2);
-    printf("Dice Roll 3 :%i time(s) \n", count_3);
-    printf("Dice Roll 4 :%i time(s) \n", count_4);
-    printf("Dice Roll 5 :%i time(s) \n", count_5);
-    printf("Dice Roll 6 :%i time(s) \n", count_6);
+    printf("\n Printing the results: \n");
+    printf("------------------------\n");
+    printf("Dice Roll 1 : %i time(s) \n", count_1);
+    printf("Dice Roll 2 : %i time(s) \n", count_2);
+    printf("Dice Roll 3 : %i time(s) \n", count_3);
+    printf("Dice Roll 4 : %i time(s) \n", count_4);
+    printf("Dice Roll 5 : %i time(s) \n", count_5);
+    printf("Dice Roll 6 : %i time(s) \n", count_6);
 
 }
