@@ -2,8 +2,8 @@ Inspiration: https://www.amazon.ca/OURCOSPLAY-Naruto-Uchiha-Cosplay-Costume/dp/B
 
 How the code will work:
 1. The computer picks a random number between 1 and 100.
-2. User will guess the number.
-- The user will then either get it RIGHT or WRONG or QUIT.
+2. User can guess the number, or they can QUIT.
+- The user will then either get it RIGHT or WRONG.
 
 IF IT IS WRONG:
 3. The User can ask 1 of the following types of questions: (1) odd/even (2) divisible by "x" number, and (3) Is the Number Y?
