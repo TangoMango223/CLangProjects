@@ -14,7 +14,7 @@ bool evaluate(int *a, int *b); //evaluate your answer as right or wrong function
 void oddeven(int *a); //Odd-even function
 void guess(int *a); //guessing function
 void quit(); //quitting function
-void hint(); //hint function
+bool hint(); //hint function
 
 
 int main(void)
@@ -48,19 +48,17 @@ int main(void)
 
         //Offer the user the exit if they get tired of this game.
         hint();
-        getchar(); //force the program to wait for a prompt before repeating.
-
-
+        getchar();
     }
-        
 
 }
 
 //Function to GET A HINT - 1 per turn/round
-void hint()
+bool hint()
 {
     //user can only get 1 hint per turn
     printf("Would you like a hint? 1 per turn (y = yes, n =no): ");
+    getchar();
     int MAX = 1;
     char str[MAX]; //store the answer
     fgets(str, MAX, stdin); //ask user for prompt
@@ -69,13 +67,12 @@ void hint()
 
     //Compare strings
     result = strcmp("y",str);
-
     if (result == 0)
     {
-        printf("Pick a hint: (1) Ask 'ODD/EVEN', or (2) Divisible by X ");
+        return 1;
     }
-    printf("No hint? Ok no worries, let's keep going in the game.");
-    return;
+    printf("No hint? Ok no worries, let's keep going in the game. \n");
+    return 0;
 
 }
 
@@ -139,5 +136,6 @@ void quit()
         printf("Thanks for playing - let's play again :D \n");
         exit(0);
     }
+    getchar();
     return;
 }
