@@ -13,9 +13,10 @@
 
 
 //Functions used:
-bool evaluate(int *a, int *b); //Guessing function
+bool evaluate(int *a, int *b); //evaluate your answer as right or wrong function
 void oddeven(int *a); //Odd-even function
-void guess(int *a);
+void guess(int *a); //guessing function
+bool quit(int *l); //quitting function
 
 int main(void)
 {
@@ -27,25 +28,33 @@ int main(void)
     //Initialize other variables:
     int nGuess = 0;
     int nAnswer = 0;
+    int door = 0; //quitting function
 
     // Generate a number first
     nAnswer = rand() % (nMax - nMin + 1) + nMin;
     printf("Pst! The right number is %i \n", nAnswer);
 
     //Begin loop - ask and guess
-
     while (true)
     {
         guess(&nGuess);
         printf("Your guess is: %i \n", nGuess);
-        bool TF = evaluate(&nGuess, &nAnswer); 
+        bool TF = evaluate(&nGuess, &nAnswer);  //evaluation time!
+
+        //Will finish the game if user gets the right answer.
         if (TF)
         {
             break;
         }
-    }
 
-    
+        quit(&door);
+        // bool leave = door;
+        // if (door)
+        // {
+        //     break;
+        // }
+
+    }
 
 }
 
@@ -86,10 +95,25 @@ void oddeven(int *a)
 
 //Function to Answer the question: Is this divisible by X?
 
-//Function to Quit This Game
-void quit(char *s)
+void divisible(int *a, int *b)
 {
 
+}
 
+//Function to Quit This Game
+bool quit(int *l)
+{
+    char *a;
+    printf("Would you like to quit? y = Yes, n = No:  ");
+    scanf("%c", a);
 
+    char *b = "y";
+    int result = 0;
+    result = strcmp(a,b);
+
+    if (result == 0)
+    {
+        return 1;
+    }
+    return 0;
 }
