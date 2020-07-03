@@ -7,23 +7,25 @@
 #include <stdlib.h> 
 #include <time.h> 
 #include <unistd.h>
+#include <stdbool.h>
 
 //Functions used:
-int guess(a,b)
+bool guess(int *a, int *b);
 
 
-int main (void)
+int main(void)
 {
     // Call the random function
     srand(time(0)); 
     int nMax = 100;
     int nMin = 1;
 
-    //Other variables:
+    //Initialize other variables:
     int nGuess = 0;
 
     // Generate a number first
     int nAnswer = rand() % (nMax - nMin + 1) + nMin;
+    printf("Pst! The right number is %i \n", nAnswer);
 
     //Ask for a guess
     printf("Guess the number: ");
@@ -40,16 +42,11 @@ int main (void)
 
 
 //Function to GUESS the answer.
-int guess(int a, int b)
+bool guess(int *a, int *b)
 {
-    if (a == b)
+    if (*a == *b)
     {
         printf("Congrats! You got the number right! Let's play again :) \n");
-    }
-
-    else
-    {
-        //Game needs to continue
         return 1; //true
     }
     return 0; //false
