@@ -1,0 +1,17 @@
+Inspiration: https://www.amazon.ca/OURCOSPLAY-Naruto-Uchiha-Cosplay-Costume/dp/B075ZWSVXQ/ref=sr_1_5?dchild=1&keywords=sasuke+costume+naruto&qid=1593739900&sr=8-5
+
+How the code will work:
+1. The computer picks a random number between 1 and 100.
+2. User will guess the number.
+- The user will then either get it RIGHT or WRONG or QUIT.
+
+IF IT IS WRONG:
+3. The User can ask 1 of the following types of questions: (1) odd/even (2) divisible by "x" number, and (3) Is the Number Y?
+5. Go back to Step #2 - guessing.
+
+IF IT'S RIGHT:
+5. The computer congratulates the person.
+6. They will get an amazing Corgi picture as a rewards.
+
+IF IT'S QUIT:
+7. Computer will thank you for playing, and then quit. 
