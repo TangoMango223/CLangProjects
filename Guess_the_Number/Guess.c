@@ -34,26 +34,23 @@ int main(void)
     //Begin loop - ask and guess
     while (true)
     {
+        //Ask user if they want to leave - they might be sick of this game!
         guess(&nGuess);
         printf("Your guess is: %i \n", nGuess);
         bool TF = evaluate(&nGuess, &nAnswer);  //evaluation time!
 
-        //Will finish the game if user gets the right answer.
+        //This will end the game if the user gets it right.
         if (TF)
         {
             break;
         }
-        //Ask user if they want to leave - they might be sick of this game!
-        if (TF == false)
-        {
-            quit();
-        }
-        
 
+        //Offer the user the exit if they get tired of this game.
+        quit();
+        getchar(); //force the program to wait for a prompt before repeating.
+        
     }
         
-        
-
 
 }
 
