@@ -14,12 +14,12 @@ int main(void)
     //Formula: https://stackoverflow.com/questions/1202687/how-do-i-get-a-specific-range-of-numbers-from-rand
     srand(time(0)); 
 
-    //Define Mix and Max for a 6-sided dice
+    //Define Mix and Max. 
     int nMax = 6;
     int nMin = 1;
 
     //Ask User how many times they want to roll...
-    printf("How many times do you want to roll?: ");
+    printf("How many times do you want to roll? This dice is 6-sided: ");
     int count = 0;
     scanf("%d", &count);
 
@@ -27,12 +27,12 @@ int main(void)
 
 
     //Counter variables: will note down how many times it shows up
-    int count_1 = 0;
-    int count_2 = 0;
-    int count_3 = 0;
-    int count_4 = 0;
-    int count_5 = 0;
-    int count_6 = 0;
+    int side[7]; //make an array
+
+    for (int i = 0; i < 7; i++) //define 1 to 6
+    {
+        side[i] = 0;
+    }
 
     //For loop
     for (int i =0; i< count; i++)
@@ -42,45 +42,21 @@ int main(void)
         sleep(1);
 
         //Tally the number of times each number was rolled, for testing purposes
-        if (nR == 1) //count the 1's
+        for (int a = 1; a < 7; a++) //define 1 to 6
         {
-            count_1 = count_1+ 1;
+            if (nR == a)
+            {
+                side[a] ++;
+            }
         }
-
-        if (nR == 2) //count the 2's
-        {
-            count_2 = count_2+ 1;
-        }
-
-        if (nR == 3) // count the 3's
-        {
-            count_3 = count_3+ 1;
-        }
-
-        if (nR == 4) // count the 3's
-        {
-            count_4 = count_4+ 1;
-        }
-
-        if (nR == 5) // count the 3's
-        {
-            count_5 = count_5+ 1;
-        }
-
-        if (nR == 6) // count the 3's
-        {
-            count_6 = count_6+ 1;
-        }
-
     }
     
     printf("\n Printing the results: \n");
     printf("------------------------\n");
-    printf("Dice Roll 1 : %i time(s) \n", count_1);
-    printf("Dice Roll 2 : %i time(s) \n", count_2);
-    printf("Dice Roll 3 : %i time(s) \n", count_3);
-    printf("Dice Roll 4 : %i time(s) \n", count_4);
-    printf("Dice Roll 5 : %i time(s) \n", count_5);
-    printf("Dice Roll 6 : %i time(s) \n", count_6);
-
+    for (int a = 1; a < 7; a++)
+        {
+            printf("Side %i rolled: %i time(s) \n",a,side[a]);
+        }
+    printf("------------------------\n");
+    return 0;
 }
