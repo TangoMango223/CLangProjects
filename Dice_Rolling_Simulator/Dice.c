@@ -25,6 +25,15 @@ int main(void)
 
     //Implementing sleep: https://www.poftut.com/what-is-sleep-function-and-how-to-use-it-in-c-program/#:~:text=C%20programming%20language%20provides%20sleep,will%20run%20without%20a%20problem.
 
+
+    //Counter variables: will note down how many 
+    int count_1 = 0;
+    int count_2 = 0;
+    int count_3 = 0;
+    int count_4 = 0;
+    int count_5 = 0;
+    int count_6 = 0;
+
     //For loop
     for (int i =0; i< count; i++)
     {
@@ -35,38 +44,42 @@ int main(void)
         //Tally the number of times each number was rolled, for testing purposes
         if (nR == 1) //count the 1's
         {
-            int count_1 = count_1+ 1;
+            count_1 = count_1+ 1;
         }
 
         if (nR == 2) //count the 2's
         {
-            int count_2 = count_2+ 1;
+            count_2 = count_2+ 1;
         }
 
         if (nR == 3) // count the 3's
         {
-            int count_3 = count_3+ 1;
+            count_3 = count_3+ 1;
         }
 
         if (nR == 4) // count the 3's
         {
-            int count_4 = count_4+ 1;
+            count_4 = count_4+ 1;
         }
 
         if (nR == 5) // count the 3's
         {
-            int count_5 = count_5+ 1;
+            count_5 = count_5+ 1;
         }
 
         if (nR == 6) // count the 3's
         {
-            int count_6 = count_6+ 1;
+            count_6 = count_6+ 1;
         }
 
     }
     
-    printf(" Printed the follwing: \n");
-    
-
+    printf("Printing the results: \n");
+    printf("Dice Roll 1 :%i time(s) \n", count_1);
+    printf("Dice Roll 2 :%i time(s) \n", count_2);
+    printf("Dice Roll 3 :%i time(s) \n", count_3);
+    printf("Dice Roll 4 :%i time(s) \n", count_4);
+    printf("Dice Roll 5 :%i time(s) \n", count_5);
+    printf("Dice Roll 6 :%i time(s) \n", count_6);
 
 }
