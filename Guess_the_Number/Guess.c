@@ -9,14 +9,12 @@
 #include <unistd.h>
 #include <stdbool.h>
 
-//Global Variables
-
-
 //Functions used:
 bool evaluate(int *a, int *b); //evaluate your answer as right or wrong function
 void oddeven(int *a); //Odd-even function
 void guess(int *a); //guessing function
-bool quit(int *l); //quitting function
+void quit();
+
 
 int main(void)
 {
@@ -28,7 +26,6 @@ int main(void)
     //Initialize other variables:
     int nGuess = 0;
     int nAnswer = 0;
-    int door = 0; //quitting function
 
     // Generate a number first
     nAnswer = rand() % (nMax - nMin + 1) + nMin;
@@ -46,15 +43,17 @@ int main(void)
         {
             break;
         }
-
-        quit(&door);
-        // bool leave = door;
-        // if (door)
-        // {
-        //     break;
-        // }
+        //Ask user if they want to leave - they might be sick of this game!
+        if (TF == false)
+        {
+            quit();
+        }
+        
 
     }
+        
+        
+
 
 }
 
@@ -74,6 +73,7 @@ bool evaluate(int *a, int *b)
         printf("Congrats! You got the number right! Let's play again! :) \n");
         return 1; //true
     }
+    printf("Sorry - your number is wrong. Keep guessing! \n");
     return 0; // false
 }
 
@@ -101,19 +101,21 @@ void divisible(int *a, int *b)
 }
 
 //Function to Quit This Game
-bool quit(int *l)
+void quit()
 {
-    char *a;
-    printf("Would you like to quit? y = Yes, n = No:  ");
-    scanf("%c", a);
+    printf("Would you like to quit? (y = Yes, n = No ): " );
+    int MAX_LIMIT = 3;
+    char str[MAX_LIMIT];  //store the answer
+    fgets(str, MAX_LIMIT, stdin);  //should get a string
 
-    char *b = "y";
-    int result = 0;
-    result = strcmp(a,b);
+    int result = 1;
+    //Compare strings
+    result = strcmp("y",str);
 
     if (result == 0)
     {
-        return 1;
+        printf("Thanks for playing - let's play again :D \n");
+        exit(0);
     }
-    return 0;
+    return;
 }
