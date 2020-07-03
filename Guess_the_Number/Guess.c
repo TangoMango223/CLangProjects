@@ -13,7 +13,8 @@
 bool evaluate(int *a, int *b); //evaluate your answer as right or wrong function
 void oddeven(int *a); //Odd-even function
 void guess(int *a); //guessing function
-void quit();
+void quit(); //quitting function
+void hint(); //hint function
 
 
 int main(void)
@@ -31,26 +32,50 @@ int main(void)
     nAnswer = rand() % (nMax - nMin + 1) + nMin;
     printf("Pst! The right number is %i \n", nAnswer);
 
-    //Begin loop - ask and guess
+    //Begin loop - User can begin to guess the prompt, and be told if they're wrong/right!
     while (true)
     {
-        //Ask user if they want to leave - they might be sick of this game!
+        //Ask for Guess and then evaluate it:
         guess(&nGuess);
         printf("Your guess is: %i \n", nGuess);
-        bool TF = evaluate(&nGuess, &nAnswer);  //evaluation time!
+        bool TF = evaluate(&nGuess, &nAnswer);  //Ealuation time!
 
-        //This will end the game if the user gets it right.
+        //This will end the game if the user gets it right. Otherwise, it'll keep going.
         if (TF)
         {
             break;
         }
 
         //Offer the user the exit if they get tired of this game.
-        quit();
+        hint();
         getchar(); //force the program to wait for a prompt before repeating.
-        
+
+
     }
         
+
+}
+
+//Function to GET A HINT - 1 per turn/round
+void hint()
+{
+    //user can only get 1 hint per turn
+    printf("Would you like a hint? 1 per turn (y = yes, n =no): ");
+    int MAX = 1;
+    char str[MAX]; //store the answer
+    fgets(str, MAX, stdin); //ask user for prompt
+
+    int result = 1; //default to 1
+
+    //Compare strings
+    result = strcmp("y",str);
+
+    if (result == 0)
+    {
+        printf("Pick a hint: (1) Ask 'ODD/EVEN', or (2) Divisible by X ");
+    }
+    printf("No hint? Ok no worries, let's keep going in the game.");
+    return;
 
 }
 
@@ -101,7 +126,7 @@ void divisible(int *a, int *b)
 void quit()
 {
     printf("Would you like to quit? (y = Yes, n = No ): " );
-    int MAX_LIMIT = 3;
+    int MAX_LIMIT = 1;
     char str[MAX_LIMIT];  //store the answer
     fgets(str, MAX_LIMIT, stdin);  //should get a string
 
