@@ -31,14 +31,13 @@ int main(void)
 
     // Generate a number first
     nAnswer = rand() % (nMax - nMin + 1) + nMin;
-    printf("Pst! The right number is %i \n", nAnswer);
+    printf("Pst! The right number is %i \n", nAnswer); //REMOVE LATER CHRISTINE!
 
     //Begin loop - User can begin to guess the prompt, and be told if they're wrong/right!
     while (true)
     {
         //Ask for Guess and then evaluate it:
         guess(&nGuess);
-        printf("Your guess is: %i \n", nGuess);
         bool TF = evaluate(&nGuess, &nAnswer);  //Ealuation time!
 
         //This will end the game if the user gets it right. Otherwise, it'll keep going.
@@ -48,12 +47,11 @@ int main(void)
         }
 
         quit(&leave);
-        getchar();
         printf("%d \n", leave);
-        // if (leave == true)
-        // {
-        //     break;
-        // }
+        if (leave)
+        {
+            break;
+        }
         
     }
 
@@ -88,10 +86,11 @@ void guess(int *a)
 {
     printf("Guess the Number: ");
     scanf("%d", a);
+    printf("Your guess is %i! \n", *a);
     return;
 }
 
-//Function to GUESS the answer.
+//Function to GUESS the answer - true/false
 bool evaluate(int *a, int *b)
 {
     if (*a == *b)
@@ -126,22 +125,21 @@ void divisible(int *a, int *b)
 
 }
 
-//Function to Quit This Game
+//Function to RAGE - Quit This Game
 void quit(bool *a)
 {
     printf("Would you like to quit? (y = Yes, n = No ): " );
-    int MAX_LIMIT = 1;
-    char str[MAX_LIMIT];  //store the answer
-    fgets(str, MAX_LIMIT, stdin);  //should get a string
+    char *d;
+    scanf("%s", d);
 
     int result = 1;
     //Compare strings
-    result = strcmp("y",str);
+    result = strcmp("y",d);
 
     if (result == 0) //if the user types "yes"
     {
         printf("Thanks for playing - let's play again :D \n");
-        bool a = true;
+        *a = true;
     }
     return;
 }
