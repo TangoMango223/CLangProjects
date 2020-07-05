@@ -1,5 +1,7 @@
 // Code is practicing implementing a hash table in C
 // Link for reference: https://www.youtube.com/watch?v=2Ti5yvumFTU
+//Left off at 10:52 in the video
+
 
 #include <ctype.h>
 #include <math.h>
@@ -22,11 +24,12 @@ typedef struct{
 person; //call this data structure PERSON
 
 //MAKE THE HASH TABLE. Make a hash table using pointers for easy space.
-//above is initialized as pointer.
+// the Hash table has to take the data struct of "person" above to fill it in.
 person *hash_table[TABLE_SIZE];
+//REMEMBER - the data structure must be the same for the hash-table and the structure for storing data.
 
 
-//Hashfunction - look up people by name:
+//Hash Function - look up people by name:
 //HASH FUNCTION VERSION #1 - add the sum of the ascii values together.
 //Better than returning a constant, but NOT random enough.
 unsigned int hash1(char *name)
@@ -81,7 +84,6 @@ void init_hash_table ()
     }
     return;
     //table is empty for now.
-
 }
 
 //Print what's stored in the hash table
@@ -89,7 +91,7 @@ void print_table()
 {
     for (int i = 0; i < TABLE_SIZE; i++)
     {
-        if (hash_table[i] == NULL)
+        if (hash_table[i] == NULL) // the hash table itself, checking
         {
             printf("Slot %i: NULL \n", i);
         }
@@ -104,14 +106,45 @@ void print_table()
 }
 
 // Make a function to INSERT into each slot
+bool hash_table_insert(person *p)
+{
+    if (p == NULL)  //prevent calling null pointers, inserting with a NULL table.
+    {
+        return false; //do nothing
+    }
 
+    //Store the person via the hash value now:
+    int index = hash3(p->name); //p->value refers to the hash table "p"'s name values
+    //int index stores and hashes the value from this.
+    if (hash_table[index] != NULL) //Detect collisions, i.e. multiple people with the same name
+    {
+        return false; 
+    }
+
+    hash_table[index] = p; //if the spot is available, set the hash-table spot to store p's name.
+    return true;
+}
 
 //Main function
-
 int main (void)
 {
+    //Start off:
     init_hash_table ();
+    //print_table();
+
+    //Create Jacob, Kate and Mpho
+    person jacob = {.name = "Jacob", .age = 20};
+    person kate = {.name = "Kate", .age = 20};
+    person mpho = {.name = "Mpho", .age = 20};
+
+    //Add to the hashtable
+    hash_table_insert(&jacob);
+    hash_table_insert(&kate);
+    hash_table_insert(&mpho);
+
+    //See new table's look:
     print_table();
+
     //Example different names
     // printf("Jacob => %u \n", hash3("Jacob"));
     // printf("Natalie => %u \n", hash3("Natalie"));
