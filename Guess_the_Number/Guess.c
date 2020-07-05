@@ -13,7 +13,7 @@
 bool evaluate(int *a, int *b); //evaluate your answer as right or wrong function
 void oddeven(int *a); //Odd-even function
 void guess(int *a); //guessing function
-void quit(); //quitting function
+bool quit(); //quitting function
 bool hint(); //hint function
 
 
@@ -27,34 +27,27 @@ int main(void)
     //Initialize other variables:
     int nGuess = 0;
     int nAnswer = 0;
-    bool leave = false;
 
-    // Generate a number first
+    // Generate a number first:
     nAnswer = rand() % (nMax - nMin + 1) + nMin;
     printf("Pst! The right number is %i \n", nAnswer); //REMOVE LATER CHRISTINE!
 
     //Begin loop - User can begin to guess the prompt, and be told if they're wrong/right!
     while (true)
     {
-        //Ask for Guess and then evaluate it:
+        //Ask for Guess and then evaluate it: 
         guess(&nGuess);
-        bool TF = evaluate(&nGuess, &nAnswer);  //Ealuation time!
-
         //This will end the game if the user gets it right. Otherwise, it'll keep going.
-        if (TF)
+        if (evaluate(&nGuess, &nAnswer))
         {
             break;
         }
 
-        quit(&leave);
-        printf("%d \n", leave);
-        if (leave)
+        if (quit())
         {
             break;
         }
-        
     }
-
 
 }
 
@@ -63,15 +56,13 @@ bool hint()
 {
     //user can only get 1 hint per turn
     printf("Would you like a hint? 1 per turn (y = yes, n =no): ");
-    getchar();
-    int MAX = 1;
-    char str[MAX]; //store the answer
-    fgets(str, MAX, stdin); //ask user for prompt
+    char *hintInput; //store the hint
+    scanf("%s", hintInput);
 
     int result = 1; //default to 1
 
     //Compare strings
-    result = strcmp("y",str);
+    result = strcmp("y",hintInput);
     if (result == 0)
     {
         return 1;
@@ -114,19 +105,17 @@ void oddeven(int *a)
     {
         printf("Your number is odd. \n There's your hint! \n");
     }
-    
     return;
 }
 
 //Function to Answer the question: Is this divisible by X?
-
 void divisible(int *a, int *b)
 {
 
 }
 
-//Function to RAGE - Quit This Game
-void quit(bool *a)
+//Function to RAGE - Quit This Game 
+bool quit()
 {
     printf("Would you like to quit? (y = Yes, n = No ): " );
     char *d;
@@ -138,8 +127,8 @@ void quit(bool *a)
 
     if (result == 0) //if the user types "yes"
     {
-        printf("Thanks for playing - let's play again :D \n");
-        *a = true;
+        printf("Thanks for playing - let's play again! \n");
+        return true;
     }
-    return;
+    return false;
 }

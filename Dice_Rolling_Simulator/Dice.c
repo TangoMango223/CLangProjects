@@ -1,3 +1,5 @@
+//Dice Rolling Simulator! V2
+
 #include <ctype.h>
 #include <math.h>
 #include <string.h>
@@ -25,11 +27,10 @@ int main(void)
 
     //Implementing sleep: https://www.poftut.com/what-is-sleep-function-and-how-to-use-it-in-c-program/#:~:text=C%20programming%20language%20provides%20sleep,will%20run%20without%20a%20problem.
 
-
     //Counter variables: will note down how many times it shows up
     int side[7]; //make an array
 
-    for (int i = 0; i < 7; i++) //define 1 to 6
+    for (int i = 0; i < 7; i++) //Define 1 to 6
     {
         side[i] = 0;
     }
@@ -42,7 +43,7 @@ int main(void)
         sleep(1);
 
         //Tally the number of times each number was rolled, for testing purposes
-        for (int a = 1; a < 7; a++) //define 1 to 6
+        for (int a = 1; a < 7; a++) //Define 1 to 6. I did 1-7 because I got an Abort Trap error in C. 
         {
             if (nR == a)
             {
