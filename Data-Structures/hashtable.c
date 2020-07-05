@@ -18,7 +18,8 @@ typedef struct{
     char name[MAX_NAME];
     int age;
     // ...other stuff later
-} person; //call this data structure PERSON
+} 
+person; //call this data structure PERSON
 
 //MAKE THE HASH TABLE. Make a hash table using pointers for easy space.
 //above is initialized as pointer.
@@ -90,17 +91,20 @@ void print_table()
     {
         if (hash_table[i] == NULL)
         {
-            printf("\t%i\t---\n", i);
+            printf("Slot %i: NULL \n", i);
         }
         else
         {
-            printf("\t%i\t%s\n", i,hash_table[i]->name);
+            printf("%i | name is %s \n", i,hash_table[i]->name);
             //Refresher: -> or arrow notation is used in C.
             // means (*hash_table[i]).name; used if the variable is initialized as pointer
         }
     }
     return;
 }
+
+// Make a function to INSERT into each slot
+
 
 //Main function
 
