@@ -27,6 +27,7 @@ int main(void)
     //Initialize other variables:
     int nGuess = 0;
     int nAnswer = 0;
+    bool leave = false;
 
     // Generate a number first
     nAnswer = rand() % (nMax - nMin + 1) + nMin;
@@ -46,10 +47,16 @@ int main(void)
             break;
         }
 
-        //Offer the user the exit if they get tired of this game.
-        hint();
+        quit(&leave);
         getchar();
+        printf("%d \n", leave);
+        // if (leave == true)
+        // {
+        //     break;
+        // }
+        
     }
+
 
 }
 
@@ -120,7 +127,7 @@ void divisible(int *a, int *b)
 }
 
 //Function to Quit This Game
-void quit()
+void quit(bool *a)
 {
     printf("Would you like to quit? (y = Yes, n = No ): " );
     int MAX_LIMIT = 1;
@@ -131,11 +138,10 @@ void quit()
     //Compare strings
     result = strcmp("y",str);
 
-    if (result == 0)
+    if (result == 0) //if the user types "yes"
     {
         printf("Thanks for playing - let's play again :D \n");
-        exit(0);
+        bool a = true;
     }
-    getchar();
     return;
 }
