@@ -180,6 +180,7 @@ int main (void)
     person eliza = {.name = "Eliza", .age = 20};
     person robert = {.name = "Robert", .age = 20};
     person jane = {.name = "Jane", .age = 20};
+    person sally = {.name = "Sally", .age = 20};
 
     //Add to the hashtable.
     //use this format because hash_table_insert only takes person format.
@@ -192,6 +193,7 @@ int main (void)
     hash_table_insert(&eliza);
     hash_table_insert(&jacob);
     hash_table_insert(&jane);
+    hash_table_insert(&sally);
 
     // //---Using Lookup function ---- 
     // //Look for Mpho - she is there.
@@ -206,7 +208,7 @@ int main (void)
     // }
     
     //Delete Robert from the list/node:
-    //person *del = hash_table_delete("Robert"); 
+    person *del = hash_table_delete("Sally"); 
 
     //Print Version 2 of Table
     printf("------------\n");
