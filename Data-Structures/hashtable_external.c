@@ -1,7 +1,6 @@
 // Code is practicing implementing a hash table in C
 // Link for reference: https://www.youtube.com/watch?v=2Ti5yvumFTU
-//Left off at 10:52 in the video
-
+//SOLUTION #2 - LINKED LIST
 
 #include <ctype.h>
 #include <math.h>
@@ -18,47 +17,15 @@
 #define TABLE_SIZE 10
 
 //Define data structure to hold the person's info
-typedef struct{
+typedef struct person{
     char name[MAX_NAME];
     int age;
-    // ...other stuff later
+    struct person *next; //refer to itself for next pointer
 } 
 person; //call this data structure PERSON
 
-//MAKE THE HASH TABLE. Make a hash table using pointers for easy space.
-// the Hash table has to take the data struct of "person" above to fill it in.
+//Make the hash table:
 person *hash_table[TABLE_SIZE];
-//REMEMBER - the data structure must be the same for the hash-table and the structure for storing data.
-
-
-//Hash Function - look up people by name:
-//HASH FUNCTION VERSION #1 - add the sum of the ascii values together.
-//Better than returning a constant, but NOT random enough.
-unsigned int hash1(char *name)
-{
-    int length = strnlen(name, MAX_NAME);
-    unsigned int hash_value = 0;
-    for (int i =0; i < length ; i++)
-    {
-        hash_value = hash_value + name[i];
-    }
-        return hash_value;
-}
-
-//HASH FUNCTION VERSION #2 - add the ascii values each time, but each time, also multiply the value
-unsigned int hash2(char *name)
-{
-    int length = strnlen(name, MAX_NAME);
-    unsigned int hash_value = 0;
-    for (int i =0; i < length ; i++)
-    {
-        hash_value = hash_value + name[i]; //addition
-        hash_value = hash_value * name[i]; //multiply
-    }
-// PROBLEM WITH THIS HASH FUNCTION - HASH VALUES are way too big.
-// Go to Hash Function Version #3
-        return hash_value;
-}
 
 //HASH FUNCTION VERSION #3 - add the ascii values each time, but each time, also multiply the value
 unsigned int hash3(char *name)
@@ -73,11 +40,6 @@ unsigned int hash3(char *name)
     }
     return hash_value;
 }
-
-// Hash Value needs to have consistent hash_values and needs to fix in the table.
-//Need to resolve collission too. 
-//Disadvantage - Linear Probing takes longer, since it's looping thru every pointer...
-//
 
 //Initialize hash table
 void init_hash_table ()
@@ -101,9 +63,15 @@ void print_table()
         }
         else
         {
-            printf("%i | name is %s \n", i,hash_table[i]->name);
-            //Refresher: -> or arrow notation is used in C.
-            // means (*hash_table[i]).name; used if the variable is initialized as pointer
+            //print out each chain
+            person *tmp = hash_table[i];
+            printf("Slot %i - ", i); 
+            while (tmp!= NULL)
+            {
+                printf("%s -", tmp->name);
+                tmp = tmp->next; //go to the next node
+            }
+            printf("\n");  //break up the hashtable's
         }
     }
     return;
@@ -120,23 +88,9 @@ bool hash_table_insert(person *p)
     //Store the person via the hash value now:
     int index = hash3(p->name); //p->value refers to the hash table "p"'s name values
     //int index stores and hashes the value from this.
-    for (int i = 0; i < TABLE_SIZE; i++)
-    {
-        int try = (index + i);
-        if (hash_table[try] == NULL)
-        {
-            //we store the name here here.
-            hash_table[try] = p;
-            return true;
-        }        
-    }
-    // if (hash_table[index] != NULL) //Detect collisions, i.e. multiple people with the same name
-    // {
-    //     return false; 
-    // }
-
-    // hash_table[index] = p; //if the spot is available, set the hash-table spot to store p's name.
-    return false;
+    p->next = hash_table[index];
+    hash_table[index] = p;
+    return true;
 }
 
 //Make a Lookup function - Return a pointer to the person if it's in the table, NULL otherwise
@@ -144,32 +98,49 @@ person *hash_table_lookup(char *name)
 // We set type as PERSON to force a return. Void = no return values.
 {
     int index = hash3(name); //calculate the hash value or the "SLOT" where the name is stored.
-    for (int i = 0; i < TABLE_SIZE; i++)
+    //Make a NODE for the front of the list.
+    person *tmp = hash_table[index];
+
+    //Look down the linked list in this SLOT until the name is found
+    while (tmp !=NULL && strcmp (tmp -> name, name) != 0)
     {
-        int try = (i + index);
-        if ((hash_table[try]!= NULL) && (strcmp(name, hash_table[try]->name) ==0))
-        {
-            return hash_table[try]; //found
-        }
-        
+        tmp = tmp->next;
     }
-    return false; //end it.
+    return tmp;
 }
 
 //Delete function
 person *hash_table_delete(char *name) 
-// We set type as PERSON to force a return. Void = no return values.
 {
     int index = hash3(name); //calculate the hash value or the "SLOT" where the name is stored.
-    for (int i = 0; i < TABLE_SIZE; i++)
+    //Make a NODE for this person's name
+    person *tmp = hash_table[index];
+    person *prev = NULL; // Set previous pointer to null.
+    //Look down the linked list in this SLOT until the name is found
+    while (tmp !=NULL && strcmp (tmp -> name, name) != 0)
     {
-        int try = (i + index);
-        if ((hash_table[try]!= NULL) && (strcmp(name, hash_table[try]->name) ==0))
-        {
-            hash_table[try] = NULL; //deleted.
-        }
+        //Explanation: A-->B-->C. Assume B is being removed.
+        //You'll need to connect A-->C, so connect B's next node with previous
+        prev = tmp; //set A to equal the old position of B.
+        prev = tmp->next; //connect together
     }
-    return false;
+
+    if (tmp == NULL)
+    {
+        return NULL;
+    }
+
+    if (prev == NULL)
+    {
+        //this node is the top of the list. Delete the head. There might be stuff 
+        hash_table[index] = tmp->next;
+    }
+
+    else
+    {
+        prev->next = tmp->next; //move the current node to be the next node
+    }
+    return tmp;
 }
 
 //Problem - Collission, if multiple  names have the same key/slot
@@ -238,8 +209,8 @@ int main (void)
         printf("Found George!\n");
     }
     
-    //Delete Mpho
-    person *del = hash_table_delete("Mpho"); 
+    //Delete Kate
+    person *del = hash_table_delete("Kate"); 
 
     //Print Version 2 of Table
     printf("------------\n");
