@@ -106,7 +106,7 @@ void print_table()
 }
 
 // Make a function to INSERT into each slot
-void hash_table_insert(person *p)
+bool hash_table_insert(person *p)
 {
     if (p == NULL)  //prevent calling null pointers, inserting with a NULL table.
     {
@@ -116,29 +116,63 @@ void hash_table_insert(person *p)
     //Store the person via the hash value now:
     int index = hash3(p->name); //p->value refers to the hash table "p"'s name values
     //int index stores and hashes the value from this.
-    if (hash_table[index] != NULL) //Detect collisions, i.e. multiple people with the same name
+    for (int i = 0; i < TABLE_SIZE; i++)
     {
-        return false; 
+        int try = (index + i);
+        if (hash_table[try] == NULL)
+        {
+            //we store the name here here.
+            hash_table[try] = p;
+            return true;
+        }        
     }
+    // if (hash_table[index] != NULL) //Detect collisions, i.e. multiple people with the same name
+    // {
+    //     return false; 
+    // }
 
-    hash_table[index] = p; //if the spot is available, set the hash-table spot to store p's name.
-    return true;
+    // hash_table[index] = p; //if the spot is available, set the hash-table spot to store p's name.
+    return false;
 }
 
-//Make a Lookup function - return a pointer to the person if it's in the table, NULL otherwise
-void *hash_table_lookup(char *name)
+//Make a Lookup function - Return a pointer to the person if it's in the table, NULL otherwise
+person *hash_table_lookup(char *name) 
+// We set type as PERSON to force a return. Void = no return values.
 {
-    int index = hash(name); //calculate the hash value or the "SLOT" where the name is stored.
-    if (hash_table[index]!= NULL) && strcmp(name, hash_table[index]->name, TABLE_SIZE) ==0)
+    int index = hash3(name); //calculate the hash value or the "SLOT" where the name is stored.
+    for (int i = 0; i < TABLE_SIZE; i++)
     {
-        return hash_table[index];
+        int try = (i + index);
+        if ((hash_table[try]!= NULL) && (strcmp(name, hash_table[try]->name) ==0))
+        {
+            return hash_table[try]; //found
+        }
+        
     }
-    else
-    {
-        return NULL;
-    }
-    return;
+    return false; //end it.
 }
+
+//Delete function
+person *hash_table_delete(char *name) 
+// We set type as PERSON to force a return. Void = no return values.
+{
+    int index = hash3(name); //calculate the hash value or the "SLOT" where the name is stored.
+    for (int i = 0; i < TABLE_SIZE; i++)
+    {
+        int try = (i + index);
+        if ((hash_table[try]!= NULL) && (strcmp(name, hash_table[try]->name) ==0))
+        {
+            hash_table[try] = NULL; //deleted.
+        }
+    }
+    return false;
+}
+
+//Problem - Collission, if multiple  names have the same key/slot
+//Solution #1 - Linear Probing - if X is not available, use X+n slot, where n = 1 -> Table_Size
+// You modify the code for insert, delete and LOOKUP to do (i+ index) % TABLE_SIZE
+//OR, you could do index + i, since index is already adjusted for table_size
+
 
 //Main function
 int main (void)
@@ -151,24 +185,71 @@ int main (void)
     person jacob = {.name = "Jacob", .age = 20};
     person kate = {.name = "Kate", .age = 20};
     person mpho = {.name = "Mpho", .age = 20};
+    person maren = {.name = "Maren", .age = 20};
+    person sarah = {.name = "Sarah", .age = 20};
+    person edna = {.name = "Edna", .age = 20};
+    person eliza = {.name = "Eliza", .age = 20};
+    person robert = {.name = "Robert", .age = 20};
+    person jane = {.name = "Jane", .age = 20};
 
-    //Add to the hashtable
+    //Add to the hashtable.
+    //use this format because hash_table_insert only takes person format.
     hash_table_insert(&jacob);
     hash_table_insert(&kate);
     hash_table_insert(&mpho);
+    hash_table_insert(&maren);
+    hash_table_insert(&sarah);
+    hash_table_insert(&edna);
+    hash_table_insert(&eliza);
+    hash_table_insert(&robert);
+    hash_table_insert(&jane);
 
     //See new table's look:
     print_table();
 
-    //Example different names
-    // printf("Jacob => %u \n", hash3("Jacob"));
-    // printf("Natalie => %u \n", hash3("Natalie"));
-    // printf("Sara => %u \n", hash3("Sara"));
-    // printf("Mpho => %u \n", hash3("Mpho"));
-    // printf("Tebogo => %u \n", hash3("Tebogo"));
-    // printf("Ron => %u \n", hash3("Ron"));
-    // printf("Jane => %u \n", hash3("Jane"));
-    // return 0;
+    //---Using Lookup function ---- 
+    //Look for Mpho - she is there.
+    person *tmp = hash_table_lookup("Mpho");
+    if (tmp == NULL)
+    {
+        printf("Not found Mpho!\n");
+    }
+    else
+    {
+        printf("Found Mpho!\n");
+    }
+
+    //Look for George, he's not there.
+    tmp = hash_table_lookup("George");
+    if (tmp == NULL)
+    {
+        printf("Not found George!\n");
+    }
+    else
+    {
+        printf("Found George!\n");
+    }
+    
+    //Delete Mpho
+    person *del = hash_table_delete("Mpho"); 
+
+    //Print Version 2 of Table
+    printf("------------\n");
+    printf("Version 2: \n");
+    print_table();
+    printf("------------\n");
+
+
 
 }
 
+
+
+
+
+
+
+
+
+//How to insert names manually before initializing hashtable:
+// printf("Jacob => %u \n", hash3("Jacob"));
