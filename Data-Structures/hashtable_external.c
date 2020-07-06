@@ -68,7 +68,7 @@ void print_table()
             printf("Slot %i - ", i); 
             while (tmp!= NULL)
             {
-                printf("%s -", tmp->name);
+                printf("%s - ", tmp->name);
                 tmp = tmp->next; //go to the next node
             }
             printf("\n");  //break up the hashtable's
@@ -113,9 +113,11 @@ person *hash_table_lookup(char *name)
 person *hash_table_delete(char *name) 
 {
     int index = hash3(name); //calculate the hash value or the "SLOT" where the name is stored.
-    //Make a NODE for this person's name
+    //Find the top of the list for the key/slot:
     person *tmp = hash_table[index];
-    person *prev = NULL; // Set previous pointer to null.
+    //Set previous pointer to NULL for now.
+    person *prev = NULL;
+
     //Look down the linked list in this SLOT until the name is found
     while (tmp !=NULL && strcmp (tmp -> name, name) != 0)
     {
@@ -125,14 +127,13 @@ person *hash_table_delete(char *name)
         prev = tmp->next; //connect together
     }
 
-    if (tmp == NULL)
+    if (tmp == NULL) //name doesn't exist.
     {
         return NULL;
     }
 
-    if (prev == NULL)
+    if (prev == NULL) //this node is the top of the list. Delete the head. There might be stuff 
     {
-        //this node is the top of the list. Delete the head. There might be stuff 
         hash_table[index] = tmp->next;
     }
 
@@ -183,31 +184,20 @@ int main (void)
     hash_table_insert(&robert);
     hash_table_insert(&jane);
 
-    //See new table's look:
-    print_table();
+    // //See new table's look:
+    // print_table();
 
-    //---Using Lookup function ---- 
-    //Look for Mpho - she is there.
-    person *tmp = hash_table_lookup("Mpho");
-    if (tmp == NULL)
-    {
-        printf("Not found Mpho!\n");
-    }
-    else
-    {
-        printf("Found Mpho!\n");
-    }
-
-    //Look for George, he's not there.
-    tmp = hash_table_lookup("George");
-    if (tmp == NULL)
-    {
-        printf("Not found George!\n");
-    }
-    else
-    {
-        printf("Found George!\n");
-    }
+    // //---Using Lookup function ---- 
+    // //Look for Mpho - she is there.
+    // person *tmp = hash_table_lookup("Mpho");
+    // if (tmp == NULL)
+    // {
+    //     printf("Not found Mpho!\n");
+    // }
+    // else
+    // {
+    //     printf("Found Mpho!\n");
+    // }
     
     //Delete Kate
     person *del = hash_table_delete("Kate"); 
