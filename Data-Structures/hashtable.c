@@ -12,6 +12,8 @@
 #include <unistd.h>
 #include <stdbool.h>
 
+// https://www.techonthenet.com/c_language/constants/create_define.php
+// #define sets global constants!
 #define MAX_NAME 256
 #define TABLE_SIZE 10
 
@@ -74,6 +76,8 @@ unsigned int hash3(char *name)
 
 // Hash Value needs to have consistent hash_values and needs to fix in the table.
 //Need to resolve collission too. 
+//Disadvantage - Linear Probing takes longer, since it's looping thru every pointer...
+//
 
 //Initialize hash table
 void init_hash_table ()
@@ -238,8 +242,6 @@ int main (void)
     printf("Version 2: \n");
     print_table();
     printf("------------\n");
-
-
 
 }
 
