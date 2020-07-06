@@ -200,7 +200,7 @@ int main (void)
     // }
     
     //Delete Kate
-    person *del = hash_table_delete("Kate"); 
+    person *del = hash_table_delete("Robert"); 
 
     //Print Version 2 of Table
     printf("------------\n");
