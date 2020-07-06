@@ -106,7 +106,7 @@ void print_table()
 }
 
 // Make a function to INSERT into each slot
-bool hash_table_insert(person *p)
+void hash_table_insert(person *p)
 {
     if (p == NULL)  //prevent calling null pointers, inserting with a NULL table.
     {
@@ -123,6 +123,21 @@ bool hash_table_insert(person *p)
 
     hash_table[index] = p; //if the spot is available, set the hash-table spot to store p's name.
     return true;
+}
+
+//Make a Lookup function - return a pointer to the person if it's in the table, NULL otherwise
+void *hash_table_lookup(char *name)
+{
+    int index = hash(name); //calculate the hash value or the "SLOT" where the name is stored.
+    if (hash_table[index]!= NULL) && strcmp(name, hash_table[index]->name, TABLE_SIZE) ==0)
+    {
+        return hash_table[index];
+    }
+    else
+    {
+        return NULL;
+    }
+    return;
 }
 
 //Main function
