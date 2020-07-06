@@ -121,25 +121,34 @@ person *hash_table_delete(char *name)
     //Look down the linked list in this SLOT until the name is found
     while (tmp !=NULL && strcmp (tmp -> name, name) != 0)
     {
-        //Explanation: A-->B-->C. Assume B is being removed.
-        //You'll need to connect A-->C, so connect B's next node with previous
-        prev = tmp; //set A to equal the old position of B.
-        prev = tmp->next; //connect together
+        prev = tmp; //start in the list to travel
+        prev = tmp->next; //travel thru the list until we find the name.
     }
 
-    if (tmp == NULL) //name doesn't exist.
+    //Once we go thru the list, three possibilities:
+    // 1) We never find the name.
+    // 2) We find the name, but it's the non-first node of the list. 
+    // 3) We find the name, but it's the first node in the list.
+
+    if (tmp == NULL) //Scenario #1.
     {
         return NULL;
     }
 
-    if (prev == NULL) //this node is the top of the list. Delete the head. There might be stuff 
+    if (prev == NULL) //Scenario #3. Make sure to not orphan any nodes. We are at the top of the list.
     {
         hash_table[index] = tmp->next;
     }
 
-    else
+    else //Scenario #2. It's the non-first node.
     {
         prev->next = tmp->next; //move the current node to be the next node
+        //Let's say TMP is B, in the nodes: A-B-C.
+        //previous next would be the NEXT node from A.
+        //TMP's next is C.
+        // thus, previous next = tmp's next.
+        // A - C ; B is removed.
+
     }
     return tmp;
 }
@@ -174,18 +183,15 @@ int main (void)
 
     //Add to the hashtable.
     //use this format because hash_table_insert only takes person format.
-    hash_table_insert(&jacob);
+    hash_table_insert(&robert);
     hash_table_insert(&kate);
     hash_table_insert(&mpho);
     hash_table_insert(&maren);
     hash_table_insert(&sarah);
     hash_table_insert(&edna);
     hash_table_insert(&eliza);
-    hash_table_insert(&robert);
+    hash_table_insert(&jacob);
     hash_table_insert(&jane);
-
-    // //See new table's look:
-    // print_table();
 
     // //---Using Lookup function ---- 
     // //Look for Mpho - she is there.
@@ -199,8 +205,8 @@ int main (void)
     //     printf("Found Mpho!\n");
     // }
     
-    //Delete Kate
-    person *del = hash_table_delete("Robert"); 
+    //Delete Robert from the list/node:
+    //person *del = hash_table_delete("Robert"); 
 
     //Print Version 2 of Table
     printf("------------\n");
